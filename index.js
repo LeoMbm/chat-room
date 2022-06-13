@@ -14,11 +14,20 @@ const pool = new Pool({
     database: process.env.PGDB,
 });
 
-pool.connect((err) => {
-    if (!err) {
-        console.log('Database connected');
+const query = `INSERT TABLE users_in_lobby(
+    id INT NOT NULL,
+    user_id INT,
+    lobby_id INT,
+    PRIMARY KEY (id)
+);`
 
-    } else {
+
+
+
+pool.connect( async (err) => {
+    try {
+        await console.log('Database Connected');
+    } catch (err) {
         console.log(err);
     }
 })
@@ -27,23 +36,24 @@ pool.connect((err) => {
 
  // Express part
 
+app.get("/", (req, res) => {
+    res.json({info: "please login"})
+})
 
- app.get("/",(req, res) => {
-    res.send({info: "Hello express"})
+
+ app.get("/api/users",async (req, res) => {
+    try {
+        const allUsers = await pool.query('SELECT * FROM users')
+        res.json(allUsers.rows)
+    } catch (err) {
+        res.send(err)
+    }
  })
 
 
 
 
 app.listen(3000, function(){console.log(`Server Launched at: http://localhost:3000`);} )
-
-
- // const query = `CREATE TABLE users_in_lobby(
-//     id INT NOT NULL,
-//     user_id INT,
-//     lobby_id INT,
-//     PRIMARY KEY (id)
-// );`
 
 
 
