@@ -50,6 +50,16 @@ app.get("/", (req, res) => {
     }
  })
 
+ app.get("/api/users/:id",async (req, res) => {
+    try {
+        const allUsers = await pool.query(`SELECT * FROM users WHERE id=${req.params.id}`)
+        res.json(allUsers.rows)
+    } catch (err) {
+        res.send(err)
+    }
+ })
+
+
 
 
 
