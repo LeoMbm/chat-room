@@ -1,6 +1,7 @@
 const { Pool } = require('pg');
 const express = require('express')
 const app = express()
+const bcrypt = require('bcrypt')
 require('dotenv').config()
 
 app.use(express.json())
@@ -50,6 +51,8 @@ app.get("/", (req, res) => {
     }
  })
 
+
+
  app.get("/api/users/:id",async (req, res) => {
     try {
         const allUsers = await pool.query(`SELECT * FROM users WHERE id=${req.params.id}`)
@@ -59,7 +62,24 @@ app.get("/", (req, res) => {
     }
  })
 
-
+ 
+ app.post("/api/users",async (req, res) => {
+     try {
+         const pwd = req.body.password
+         const salt = await bcrypt.genSalt()
+         const hashedPwd = await bcrypt.hash(pwd, salt)
+         const values = [11, 'Marcus', 'marcus@gmail.com', hashedPwd, '2022-06-14']
+         console.log(salt);
+        console.log(hashedPwd);
+        console.log();
+        const allUsers = await pool.query(`INSERT INTO users VALUES($1,$2,$3, $4, $5)`, values)
+ 
+        res.status(201).send('User Created')
+    } catch (err) {
+        res.status(500).send('Attempt Fail')
+        console.log(err);
+    }
+ })
 
 
 
