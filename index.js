@@ -3,8 +3,26 @@ const express = require('express')
 const app = express()
 const bcrypt = require('bcrypt')
 require('dotenv').config()
+const { auth } = require('express-openid-connect');
+const { requiresAuth } = require('express-openid-connect');
+
+
+// Auth Part 
+
+const config = {
+  authRequired: false,
+  auth0Logout: true,
+  secret: process.env.secret,
+  baseURL: process.env.baseURL,
+  clientID: process.env.clientID,
+  issuerBaseURL:process.env.issuerBaseURL 
+};
+
+// auth router attaches /login, /logout, and /callback routes to the baseURL
+
 
 app.use(express.json())
+
 // DB Part
 
 const pool = new Pool({
@@ -20,9 +38,16 @@ const query = `INSERT TABLE users_in_lobby(
     user_id INT,
     lobby_id INT,
     PRIMARY KEY (id)
-);`
-
-
+    );`
+    
+    
+    app.use(auth(config));
+    
+    app.get('/profile', requiresAuth(), (req, res) => {
+    
+        res.send(JSON.stringify(req.oidc.user));
+      });
+    // -----------------------------
 
 
 pool.connect( async (err) => {
@@ -37,8 +62,15 @@ pool.connect( async (err) => {
 
  // Express part
 
+ 
+
+app.get("/register", (req, res) => {
+    res.send(create())
+    
+})
+
 app.get("/", (req, res) => {
-    res.json({info: "please login"})
+    res.send(req.oidc.isAuthenticated() ? 'Logged in' : 'Logged out');
 })
 
 
@@ -62,13 +94,59 @@ app.get("/", (req, res) => {
     }
  })
 
+
+ app.delete("/api/users/:id",async (req, res) => {
+    try {
+        const allUsers = await pool.query(`DELETE FROM users WHERE id=${req.params.id}`)
+        res.status(201).send('User deleted')
+    } catch (err) {
+        res.status(500).send('Fail for delete')
+        console.log(err);
+    }
+ })
+
+
+ function create(user, callback) {
+    //this example uses the "pg" library
+    //more info here: https://github.com/brianc/node-postgres
+
+    try {
+        const bcrypt = require('bcrypt');
+        const postgres = require('pg');
+      
+        const conString = process.env.POSTGRES_URL;
+        postgres.connect(conString, function (err, client, done) {
+          if (err) return callback(err);
+      
+          bcrypt.hash(user.password, 10, function (err, hashedPassword) {
+            if (err) return callback(err);
+      
+            const query = 'INSERT INTO users(email, password) VALUES ($1, $2)';
+            client.query(query, [user.email, hashedPassword], function (err, result) {
+              // NOTE: always call `done()` here to close
+              // the connection to the database
+              done();
+      
+              return callback(err);
+            });
+          });
+        });
+        
+    } catch (err) {
+        console.log(err);
+        
+    }
+  
+   
+  }
+  
  
  app.post("/api/users",async (req, res) => {
      try {
          const pwd = req.body.password
          const salt = await bcrypt.genSalt()
          const hashedPwd = await bcrypt.hash(pwd, salt)
-         const values = [11, 'Marcus', 'marcus@gmail.com', hashedPwd, '2022-06-14']
+         const values = [req.body.id, req.body.username, req.body.email, hashedPwd, req.body.created_at]
          console.log(salt);
         console.log(hashedPwd);
         console.log();
@@ -81,11 +159,10 @@ app.get("/", (req, res) => {
     }
  })
 
-
-
 app.listen(3000, function(){console.log(`Server Launched at: http://localhost:3000`);} )
 
 
 
 
+// TODO: REQUEST FOR LOBBY, ADMIN, AUTHENTICATION 
 
