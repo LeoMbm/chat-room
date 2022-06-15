@@ -8,9 +8,12 @@ router.get("/api/users/:id", dataControllers.userById_get);
 router.delete("/api/users/:id", dataControllers.userById_delete);
 // CREATE AND GET LOBBY
 router.get("/api/lobby", dataControllers.allLobby_get);
+router.get("/api/lobby/:id", dataControllers.IDLobby_get);
 router.post("/api/lobby", dataControllers.allLobby_post);
-// ADD AND GET USER IN LOBBY
+router.delete("/api/lobby/:id", dataControllers.allLobby_delete);
+// ADD GET AND DELETE USER IN LOBBY
 router.get("/api/lobby/users", dataControllers.userLobby_get);
 router.post("/api/lobby/users", dataControllers.userLobby_post);
+router.delete("/api/lobby/users/:id", dataControllers.userLobby_delete);
 
 module.exports = router;

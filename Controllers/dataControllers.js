@@ -40,6 +40,17 @@ module.exports.allLobby_get = async (req, res) => {
     res.send(err);
   }
 };
+
+module.exports.IDLobby_get = async (req, res) => {
+  try {
+    const allUsers = await pool.query(
+      `SELECT * FROM lobby WHERE id=${req.params.id}`
+    );
+    res.json(allUsers.rows);
+  } catch (err) {
+    res.send(err);
+  }
+};
 module.exports.allLobby_post = async (req, res) => {
   const { id, name, admin_id } = req.body;
 
@@ -53,6 +64,18 @@ module.exports.allLobby_post = async (req, res) => {
     res.status(201).send("Lobby Created");
   } catch (err) {
     res.status(401).send("Attempt Fail");
+    console.log(err);
+  }
+};
+
+module.exports.allLobby_delete = async (req, res) => {
+  try {
+    const allUsers = await pool.query(
+      `DELETE FROM lobby WHERE id=${req.params.id}`
+    );
+    res.status(201).send("Lobby deleted");
+  } catch (err) {
+    res.status(500).send("Fail for delete");
     console.log(err);
   }
 };
@@ -85,6 +108,18 @@ module.exports.userLobby_post = async (req, res) => {
     res.status(201).send("User Added in Lobby");
   } catch (err) {
     res.status(500).send("Attempt Fail");
+    console.log(err);
+  }
+};
+
+module.exports.userLobby_delete = async (req, res) => {
+  try {
+    const allUsers = await pool.query(
+      `DELETE FROM users_in_lobby WHERE user_id=${req.params.id}`
+    );
+    res.status(201).send("User deleted from the lobby");
+  } catch (err) {
+    res.status(500).send("Fail for delete");
     console.log(err);
   }
 };
