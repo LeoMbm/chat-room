@@ -15,5 +15,10 @@ router.delete("/api/lobby/:id", dataControllers.allLobby_delete);
 router.get("/api/lobby/users", dataControllers.userLobby_get);
 router.post("/api/lobby/users", dataControllers.userLobby_post);
 router.delete("/api/lobby/users/:id", dataControllers.userLobby_delete);
+// CREATE GET AND DELETE MESSAGE
+router.get("/api/messages", dataControllers.messages_get);
+router.post("/api/messages", dataControllers.messages_post);
+router.delete("/api/messages/:id", dataControllers.messages_delete);
+// router.delete("/api/lobby/messages/:id", dataControllers.messages_delete);
 
 module.exports = router;

@@ -123,3 +123,47 @@ module.exports.userLobby_delete = async (req, res) => {
     console.log(err);
   }
 };
+
+module.exports.messages_get = async (req, res) => {
+  try {
+    const messages = await pool.query(`SELECT * FROM messages`);
+    res.json(messages.rows);
+  } catch (err) {
+    res.send(err);
+  }
+};
+
+module.exports.messages_post = async (req, res) => {
+  const { content, username, lobby_id } = req.body;
+  if (!username) return res.status(400).send({ error: "Invalid Request" });
+
+  try {
+    const user = await pool.query(`SELECT * FROM users WHERE username=$1`, [
+      username,
+    ]);
+    if (user.rowCount === 0) {
+      console.log("No user found");
+    } else {
+      await pool.query(
+        `INSERT INTO messages (content, created_at, modified_at, author_id, lobby_id) VALUES ($1,now(), now(), $2, $3)`,
+        [content, user.rows[0].id, lobby_id]
+      );
+    }
+    res.status(201).send("Message sent");
+  } catch (err) {
+    res.status(500).send("Attempt Fail");
+    console.log(err);
+  }
+};
+
+module.exports.messages_delete = async (req, res) => {
+  try {
+    const allUsers = await pool.query(
+      `DELETE FROM messages WHERE id=${req.params.id}`
+    );
+    res.status(201).send("Message deleted");
+  } catch (err) {
+    res.status(500).send("Fail for delete");
+    console.log(err);
+  }
+};
