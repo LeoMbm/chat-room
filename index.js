@@ -2,33 +2,28 @@ const { Pool } = require("pg");
 const express = require("express");
 const app = express();
 const bcrypt = require("bcrypt");
+const ejs = require("ejs");
 require("dotenv").config();
 const authRoutes = require("./Routes/authRoutes");
+const viewsRoutes = require("./Routes/viewsRoute");
+const dataRoutes = require("./Routes/dataRoutes");
+const { pool, query } = require("./db/dbConfig");
 
-app.use(express.json());
+app.set("view engine", "ejs"); // Allows us to see the ejs HTML templates.
+app.use(express.json()); // Allows for the API to work.
+app.use(express.static("public")); // Allows for the public directory to be easily accessed on the server.
 
 // DB Part
 
-const pool = new Pool();
-pool.connect(async (err) => {
-  try {
-    await console.log("Database Connected");
-  } catch (err) {
-    console.log(err);
-  }
-});
-
-const query = `INSERT TABLE users_in_lobby(
-    id INT NOT NULL,
-    user_id INT,
-    lobby_id INT,
-    PRIMARY KEY (id)
-    );`;
+pool.connect();
 
 // Express
 app.use(authRoutes);
+app.use(viewsRoutes);
+app.use(dataRoutes);
 
 // app.use(async (req, res, next)=> {
+
 //     if (!req.headers.authorization){
 //         return res.status(401).send('Unauthorized')
 //     }
@@ -48,59 +43,16 @@ app.use(authRoutes);
 //     return res.status(403).send('Invalid Token')
 // })
 // APP USE IS A MIDDLEWARE FOR UNAUTHORIZED USER'S PAGE BELOW
-
-app.get("/api/users", async (req, res) => {
+app.get("/info", async (req, res) => {
   try {
-    const allUsers = await pool.query("SELECT * FROM users");
+    const allUsers = await pool.query(`SELECT table_name 
+        FROM information_schema.tables 
+    WHERE table_type = 'BASE TABLE' 
+        AND table_schema NOT IN 
+            ('pg_catalog', 'information_schema');`);
     res.json(allUsers.rows);
   } catch (err) {
     res.send(err);
-  }
-});
-
-app.get("/api/users/:id", async (req, res) => {
-  try {
-    const allUsers = await pool.query(
-      `SELECT * FROM users WHERE id=${req.params.id}`
-    );
-    res.json(allUsers.rows);
-  } catch (err) {
-    res.send(err);
-  }
-});
-
-app.delete("/api/users/:id", async (req, res) => {
-  try {
-    const allUsers = await pool.query(
-      `DELETE FROM users WHERE id=${req.params.id}`
-    );
-    res.status(201).send("User deleted");
-  } catch (err) {
-    res.status(500).send("Fail for delete");
-    console.log(err);
-  }
-});
-
-app.post("/api/users", async (req, res) => {
-  const { id, username, email, created_at } = req.body;
-
-  try {
-    const pwd = req.body.password;
-    const salt = await bcrypt.genSalt();
-    const hashedPwd = await bcrypt.hash(pwd, salt);
-    const values = [id, username, email, hashedPwd, created_at];
-    console.log(salt);
-    console.log(hashedPwd);
-    console.log();
-    const allUsers = await pool.query(
-      `INSERT INTO users VALUES($1,$2,$3, $4, $5)`,
-      values
-    );
-
-    res.status(201).send("User Created");
-  } catch (err) {
-    res.status(401).send("Attempt Fail");
-    console.log(err);
   }
 });
 

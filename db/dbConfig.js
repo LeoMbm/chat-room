@@ -1,15 +1,13 @@
-const { Pool } = require('pg');
-
-
+const { Pool } = require("pg");
 
 // DB Part
 
 const pool = new Pool({
-    user: process.env.PGUSER,
-    host: process.env.PGHOST,
-    password: process.env.PGPASSWORD, 
-    port: process.env.PGPORT,
-    database: process.env.PGDB,
+  user: process.env.PGUSER,
+  host: process.env.PGHOST,
+  password: process.env.PGPASSWORD,
+  port: process.env.PGPORT,
+  database: process.env.PGDB,
 });
 
 const query = `INSERT TABLE users_in_lobby(
@@ -17,54 +15,22 @@ const query = `INSERT TABLE users_in_lobby(
     user_id INT,
     lobby_id INT,
     PRIMARY KEY (id)
-    );`
-    
+    );`;
 
-
-pool.connect( async (err) => {
-    try {
-        await console.log('Database Connected');
-    } catch (err) {
-        console.log(err);
-    }
-})
-
-
+pool.connect(async (err) => {
+  try {
+    await console.log("Database Connected");
+  } catch (err) {
+    console.log(err);
+  }
+});
 
 module.exports = {
-    pool, query
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+  query: (text, params, callback) => {
+    return pool.query(text, params, callback);
+  },
+  pool,
+};
 
 // app.get('/profile', requiresAuth(), async (req, res) => {
 //     const q = await pool.query('SELECT * from users WHERE email=$1', [req.oidc.user.email])

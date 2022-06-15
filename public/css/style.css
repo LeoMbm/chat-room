@@ -1,0 +1,86 @@
+@import url("https://fonts.googleapis.com/css2?family=Graduate&display=swap");
+
+body {
+  background-color: #19204e;
+}
+
+.about {
+  font-family: "Graduate", cursive;
+  color: #d6d6d6;
+}
+
+.logo {
+  width: fit-content;
+  padding: 0.5em;
+  margin: 2em auto;
+}
+
+main {
+  display: flex;
+  flex-flow: column wrap;
+  justify-content: center;
+  margin: 3em;
+}
+
+/* FIRST PAGE */
+/* Buttons */
+.loginBtn,
+.signUpBtn,
+.aboutBtn {
+  width: 150px;
+  padding: 1em;
+  border-radius: 1em;
+  margin: 1em auto;
+  font-family: "Graduate", cursive;
+  cursor: pointer;
+}
+
+/* SECOND PAGE */
+/* Forms */
+.login,
+.signUp {
+  display: flex;
+  flex-flow: column wrap;
+  justify-content: center;
+  width: 400px;
+  margin: 1em auto;
+  border-radius: 1em;
+  border: solid 3px #d6d6d6;
+  padding: 1em;
+}
+
+/* EVERY PAGE */
+
+input,
+select {
+  color: #d6d6d6;
+  font-family: "Graduate", cursive;
+  color: #d6d6d6;
+  padding: 0.5em;
+  border-radius: 1em;
+  border: solid 2.5px #d6d6d6;
+  margin: 0.5em;
+  background-color: #19204e;
+}
+
+::placeholder {
+  color: #d6d6d6;
+}
+
+a {
+  font-family: "Graduate", cursive;
+  background-color: #d6d6d6;
+  color: #19204e;
+  border-radius: 1em;
+  border: solid 2.5px #d6d6d6;
+  padding: 0.5em;
+  margin: 0.5em;
+  text-decoration: none;
+  text-align: center;
+}
+
+a:hover {
+  color: #df1b3f;
+  transform: scale(1.1);
+  transition: ease-in-out 500ms;
+}
