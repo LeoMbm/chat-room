@@ -10,20 +10,12 @@ const pool = new Pool({
   database: process.env.PGDB,
 });
 
-const query = `INSERT TABLE users_in_lobby(
-    id INT NOT NULL,
-    user_id INT,
-    lobby_id INT,
-    PRIMARY KEY (id)
-    );`;
-
-pool.connect(async (err) => {
-  try {
-    await console.log("Database Connected");
-  } catch (err) {
-    console.log(err);
-  }
-});
+// const query = `INSERT TABLE users_in_lobby(
+//     id INT NOT NULL,
+//     user_id INT,
+//     lobby_id INT,
+//     PRIMARY KEY (id)
+//     );`;
 
 module.exports = {
   query: (text, params, callback) => {

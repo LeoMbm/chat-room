@@ -1,4 +1,3 @@
-const { Pool } = require("pg");
 const express = require("express");
 const app = express();
 const bcrypt = require("bcrypt");
@@ -7,7 +6,7 @@ require("dotenv").config();
 const authRoutes = require("./Routes/authRoutes");
 const viewsRoutes = require("./Routes/viewsRoute");
 const dataRoutes = require("./Routes/dataRoutes");
-const { pool, query } = require("./db/dbConfig");
+const { pool } = require("./db/dbConfig");
 
 app.set("view engine", "ejs"); // Allows us to see the ejs HTML templates.
 app.use(express.json()); // Allows for the API to work.
@@ -15,7 +14,13 @@ app.use(express.static("public")); // Allows for the public directory to be easi
 
 // DB Part
 
-pool.connect();
+pool.connect(async (err) => {
+  try {
+    await console.log("Database Connected");
+  } catch (err) {
+    console.log(err);
+  }
+});
 
 // Express
 app.use(authRoutes);

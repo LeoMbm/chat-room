@@ -1,7 +1,6 @@
-const { pool, query } = require("../db/dbConfig");
+const { pool } = require("../db/dbConfig");
 
 const bcrypt = require("bcrypt");
-// const { pool } = require("../index");
 
 module.exports.signup_get = (req, res) => {
   res.render("signup");
