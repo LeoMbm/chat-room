@@ -1,7 +1,6 @@
 const { pool } = require("../db/dbConfig");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
-const { userLobby_post } = require("./dataControllers");
 
 const maxAge = 3 * 24 * 60 * 60;
 
@@ -11,27 +10,25 @@ const createToken = (id) => {
   });
 };
 
-module.exports.signup_get = (req, res) => {
-  res.render("signup");
+module.exports.signup_get = async (req, res) => {
+  await res.render("signup");
 };
-module.exports.login_get = (req, res) => {
-  res.render("login");
+module.exports.login_get = async (req, res) => {
+  await res.render("login");
 };
 module.exports.signup_post = async (req, res) => {
   const { id, username, email, password } = req.body;
 
   try {
     const hashedPwd = await bcrypt.hash(password, 10);
-    const values = [id, username, email, hashedPwd];
+    const values = [username, email, hashedPwd];
     console.log(hashedPwd);
-    console.log();
+
     const user = await pool.query(
-      `INSERT INTO users (id, username, email, password, created_at) VALUES ($1,$2,$3, $4, now())`,
+      `INSERT INTO users (username, email, password, created_at) VALUES ($1,$2,$3, now());`,
       values
     );
-    const token = createToken(user.id);
-    res.cookie("jwt", token, { httpOnly: true, maxAge: maxAge * 1000 });
-    console.log(token);
+
     res.status(201).send("User Created");
   } catch (err) {
     res.status(401).send("Attempt Fail");
@@ -55,16 +52,41 @@ module.exports.login_post = async (req, res) => {
     const hash = user.rows[0].password;
 
     const match = await bcrypt.compare(password, hash);
-    // console.log("email:" + email);
-    // console.log("password:" + password + " match:" + match);
+    console.log("email:" + email);
+    console.log("password:" + password + " match:" + match);
+    const token = createToken(user.id);
+    res.cookie("jwt", token, { httpOnly: true, maxAge: maxAge });
+    console.log(token);
 
     if (match === true) {
-      res.send("You have the password");
-    } else return res.status(401).send("You dont have the password");
+      res.send("Connected");
+    } else return res.status(401).send("Wrong password");
 
     // console.log(match);
   } catch (error) {
     console.log(error);
+  }
+};
+
+module.exports.logout_get = (req, res) => {
+  res.cookie("jwt", "", { maxAge: 1 });
+  res.redirect("/");
+  res.send("Logout !");
+};
+
+module.exports.requireAuth = (req, res, next) => {
+  const token = req.cookies.jwt;
+  if (token) {
+    jwt.verify(token, process.env.JWT_SECRET, async (err, decoded) => {
+      if (err) {
+        console.log(err);
+      } else {
+        console.log("You have the token !");
+        next();
+      }
+    });
+  } else {
+    res.status(401).send("You dont have the token :(");
   }
 };
 

@@ -8,7 +8,7 @@ const authRoutes = require("./Routes/authRoutes");
 const viewsRoutes = require("./Routes/viewsRoute");
 const dataRoutes = require("./Routes/dataRoutes");
 const { pool } = require("./db/dbConfig");
-// const jwt = require("jsonwebtoken");
+const jwt = require("jsonwebtoken");
 // const crypto = require("crypto");
 // const key = crypto.randomBytes(64).toString("hex");
 // console.log(key);
@@ -32,40 +32,6 @@ pool.connect(async (err) => {
 app.use(authRoutes);
 app.use(viewsRoutes);
 app.use(dataRoutes);
-
-// app.use(async (req, res, next) => {
-//   if (!req.headers.authorization) {
-//     return res.status(401).send("Unauthorized");
-//   }
-//   try {
-//     const decoded = await jwt.verify(
-//       req.headers.authorization.split(" ")[1],
-//       process.env.JWT_SECRET
-//     );
-//     if (decoded !== undefined) {
-//       req.user = decoded;
-//       return next();
-//     }
-//   } catch (error) {
-//     console.log(error);
-//   }
-//   return res.status(403).send("Invalid Token");
-// });
-
-// APP USE IS A MIDDLEWARE FOR UNAUTHORIZED USER'S PAGE BELOW
-
-app.get("/info", async (req, res) => {
-  try {
-    const allUsers = await pool.query(`SELECT table_name 
-        FROM information_schema.tables 
-    WHERE table_type = 'BASE TABLE' 
-        AND table_schema NOT IN 
-            ('pg_catalog', 'information_schema');`);
-    res.json(allUsers.rows);
-  } catch (err) {
-    res.send(err);
-  }
-});
 
 app.listen(process.env.PORT || 3000, function () {
   console.log(`Server Launched at: http://localhost:3000`);

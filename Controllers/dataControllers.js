@@ -1,5 +1,7 @@
 const { pool, query } = require("../db/dbConfig");
 
+// TODO: DATABASE NEW USERS
+
 module.exports.allUsers_get = async (req, res) => {
   try {
     const allUsers = await pool.query("SELECT * FROM users");

@@ -11,9 +11,15 @@ form.addEventListener("submit", async (e) => {
   const password = form.password.value;
 
   try {
-    const res = await fetch("http://localhost:3000/api/signup", {
+    const res = await fetch("http://localhost:3000/signup", {
       method: "POST",
-      body: JSON.stringify({ firstName, lastName, username, email, password }),
+      body: JSON.stringify({
+        firstName: firstName,
+        lastName: lastName,
+        username: username,
+        email: email,
+        password: password,
+      }),
       headers: { "Content-Type": "application/json" },
     });
   } catch (err) {
