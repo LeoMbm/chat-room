@@ -8,6 +8,10 @@ const pool = new Pool({
   password: process.env.PGPASSWORD,
   port: process.env.PGPORT,
   database: process.env.PGDB,
+  connectionString: process.env.DATABASE_URL,
+  ssl: {
+    rejectUnauthorized: false,
+  },
 });
 
 // const query = `INSERT TABLE users_in_lobby(

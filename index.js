@@ -8,6 +8,10 @@ const authRoutes = require("./Routes/authRoutes");
 const viewsRoutes = require("./Routes/viewsRoute");
 const dataRoutes = require("./Routes/dataRoutes");
 const { pool } = require("./db/dbConfig");
+// const jwt = require("jsonwebtoken");
+// const crypto = require("crypto");
+// const key = crypto.randomBytes(64).toString("hex");
+// console.log(key);
 
 app.set("view engine", "ejs"); // Allows us to see the ejs HTML templates.
 app.use(express.json()); // Allows for the API to work.
@@ -34,7 +38,7 @@ app.use(dataRoutes);
 //     return res.status(401).send("Unauthorized");
 //   }
 //   try {
-//     const decoded = await verify(
+//     const decoded = await jwt.verify(
 //       req.headers.authorization.split(" ")[1],
 //       process.env.JWT_SECRET
 //     );
@@ -43,11 +47,13 @@ app.use(dataRoutes);
 //       return next();
 //     }
 //   } catch (error) {
-//     console.log(err);
+//     console.log(error);
 //   }
 //   return res.status(403).send("Invalid Token");
 // });
+
 // APP USE IS A MIDDLEWARE FOR UNAUTHORIZED USER'S PAGE BELOW
+
 app.get("/info", async (req, res) => {
   try {
     const allUsers = await pool.query(`SELECT table_name 
