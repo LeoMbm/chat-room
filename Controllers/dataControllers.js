@@ -82,7 +82,7 @@ module.exports.allLobby_delete = async (req, res) => {
 
 module.exports.userLobby_get = async (req, res) => {
   try {
-    const allUsers = await pool.query("SELECT * FROM users_in_lobby");
+    const allUsers = await pool.query(`SELECT * FROM users_in_lobby`);
     res.json(allUsers.rows);
   } catch (err) {
     res.send(err);
@@ -127,6 +127,17 @@ module.exports.userLobby_delete = async (req, res) => {
 module.exports.messages_get = async (req, res) => {
   try {
     const messages = await pool.query(`SELECT * FROM messages`);
+    res.json(messages.rows);
+  } catch (err) {
+    res.send(err);
+  }
+};
+
+module.exports.messageID_get = async (req, res) => {
+  try {
+    const messages = await pool.query(
+      `SELECT * FROM messages where id =${req.params.id}`
+    );
     res.json(messages.rows);
   } catch (err) {
     res.send(err);
