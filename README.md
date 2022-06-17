@@ -24,24 +24,24 @@ You may also see any lint errors in the console.
 
 Here is the endpoints you could use.
 
-| Endpoint               | Method | Token?         | Admin only | Request                  |
-| ---------------------- | ------ | -------------- | ---------- | ------------------------ |
-| /api/users             | GET    |                |            | All the users            |
-| /api/users/{id}        | GET    |                |            | A single user from ID    |
-| /api/lobby             | GET    |                |            | All lobby                |
-| /api/lobby/{id}        | GET    |                |            | A single lobby from ID   |
-| /api/usersinlobby      | GET    |                |            | All users in lobby       |
-| /api/messages          | GET    |                |            | All messages             |
-| /api/messages/{id}     | GET    |                |            | A single message from ID |
-| /logout                | GET    | destroy cookie |            | Disconnect user          |
-| /signup                | POST   |                |            | Create an user           |
-| /login                 | POST   | create cookie  |            | Login user               |
-| /api/lobby             | POST   |                |            | Create a lobby           |
-| /api/usersinlobby      | POST   |                |            | Add user to a lobby      |
-| /api/messages          | POST   |                |            | Create/Send Messages     |
-| /api/users/{id}        | DELETE |                |            | Delete an user           |
-| /api/lobby/{id}        | DELETE |                |            | Delete a lobby           |
-| /api/usersinlobby/{id} | DELETE |                |            | Delete an user in lobby  |
-| /api/messages/{id}     | DELETE |                |            | Delete a message         |
+| Endpoint               | Method | Token?         | Request                  |
+| ---------------------- | ------ | -------------- | ------------------------ |
+| /api/users             | GET    |                | All the users            |
+| /api/users/{id}        | GET    |                | A single user from ID    |
+| /api/lobby             | GET    |                | All lobby                |
+| /api/lobby/{id}        | GET    |                | A single lobby from ID   |
+| /api/usersinlobby      | GET    |                | All users in lobby       |
+| /api/messages          | GET    |                | All messages             |
+| /api/messages/{id}     | GET    |                | A single message from ID |
+| /logout                | GET    | destroy cookie | Disconnect user          |
+| /signup                | POST   |                | Create an user           |
+| /login                 | POST   | create cookie  | Login user               |
+| /api/lobby             | POST   |                | Create a lobby           |
+| /api/usersinlobby      | POST   |                | Add user to a lobby      |
+| /api/messages          | POST   |                | Create/Send Messages     |
+| /api/users/{id}        | DELETE |                | Delete an user           |
+| /api/lobby/{id}        | DELETE |                | Delete a lobby           |
+| /api/usersinlobby/{id} | DELETE |                | Delete an user in lobby  |
+| /api/messages/{id}     | DELETE |                | Delete a message         |
 
 ## By LeoMbm
