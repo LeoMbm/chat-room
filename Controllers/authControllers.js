@@ -28,7 +28,7 @@ module.exports.signup_post = async (req, res) => {
       `INSERT INTO users (username, email, password, created_at) VALUES ($1,$2,$3, now());`,
       values
     );
-
+    res.redirect("/welcome");
     res.status(201).send("User Created");
   } catch (err) {
     res.status(401).send("Attempt Fail");
