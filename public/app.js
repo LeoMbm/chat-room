@@ -11,17 +11,20 @@ form.addEventListener("submit", async (e) => {
   const password = form.password.value;
 
   try {
-    const res = await fetch("http://localhost:3000/signup", {
-      method: "POST",
-      body: JSON.stringify({
-        firstName: firstName,
-        lastName: lastName,
-        username: username,
-        email: email,
-        password: password,
-      }),
-      headers: { "Content-Type": "application/json" },
-    });
+    const res = await fetch(
+      "https://cryptic-shore-57954.herokuapp.com/signup",
+      {
+        method: "POST",
+        body: JSON.stringify({
+          firstName: firstName,
+          lastName: lastName,
+          username: username,
+          email: email,
+          password: password,
+        }),
+        headers: { "Content-Type": "application/json" },
+      }
+    );
   } catch (err) {
     console.log(err);
   }
