@@ -10,6 +10,8 @@
 
 ## Available Scripts
 
+Before use, run `npm i` for installing all dependencies
+
 In the project directory, you can run:
 
 ### `npm start`
