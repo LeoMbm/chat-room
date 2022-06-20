@@ -27,6 +27,8 @@ module.exports.userById_delete = async (req, res) => {
     const allUsers = await pool.query(
       `DELETE FROM users WHERE id=${req.params.id}`
     );
+    if (allUsers.rowCount === 0)
+      return res.status(400).send("User doesnt exist");
     res.status(201).send("User deleted");
   } catch (err) {
     res.status(500).send("Fail for delete");
@@ -119,7 +121,9 @@ module.exports.userLobby_delete = async (req, res) => {
     const allUsers = await pool.query(
       `DELETE FROM users_in_lobby WHERE user_id=${req.params.id}`
     );
-    res.status(201).send("User deleted from the lobby");
+    if (allUsers.rowCount === 0) {
+      console.log("User not in the group");
+    } else return res.status(201).send("User deleted from the lobby");
   } catch (err) {
     res.status(500).send("Fail for delete");
     console.log(err);

@@ -18,6 +18,8 @@ module.exports.login_get = async (req, res) => {
 };
 module.exports.signup_post = async (req, res) => {
   const { id, username, email, password } = req.body;
+  if (!username && !email && !password)
+    return res.status(400).send({ error: "Invalid Request" });
 
   try {
     const hashedPwd = await bcrypt.hash(password, 10);
@@ -89,25 +91,3 @@ module.exports.requireAuth = (req, res, next) => {
     res.status(401).send("You dont have the token :(");
   }
 };
-
-// function verifyToken(req, res, next) {
-//   const bearerHeader = req.headers["authorization"];
-//   const token = bearerHeader && bearerHeader.split(" ")[1];
-//   if (token == null) return res.status(401);
-//   jwt.verify(token, process.env.JWT_SECRET, (err, user) => {
-//     if (err) return res.status(403);
-//     req.user = user;
-//     next();
-//   });
-// }
-
-// const idToken = req.headers.authorization;
-
-// jwt.verify(idToken, process.env.JWT_SECRET, (err, decoded) => {
-//   if (err) {
-//     res.status(401).send("Unauthorized");
-//   } else {
-//     res.send(user.rows);
-//   }
-// });
-// console.log(idToken);
