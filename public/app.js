@@ -1,5 +1,6 @@
 // const { response } = require("express");
 const form = document.querySelector("form");
+const button = document.querySelector("button");
 
 form.addEventListener("submit", async (e) => {
   e.preventDefault();
@@ -25,10 +26,10 @@ form.addEventListener("submit", async (e) => {
         headers: { "Content-Type": "application/json" },
       }
     );
-    form.disabled = true;
   } catch (err) {
     console.log(err);
   }
+  button.disabled = true;
 });
 
 // const lastName = document.getElementById("lastName");
