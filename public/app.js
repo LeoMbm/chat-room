@@ -25,6 +25,7 @@ form.addEventListener("submit", async (e) => {
         headers: { "Content-Type": "application/json" },
       }
     );
+    form.disabled = true;
   } catch (err) {
     console.log(err);
   }
