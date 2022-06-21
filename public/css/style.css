@@ -1,18 +1,18 @@
 @import url("https://fonts.googleapis.com/css2?family=Graduate&display=swap");
 
 body {
-  background-color: #19204e;
+  background-color: #ecf0fd;
 }
 
 .about {
   font-family: "Graduate", cursive;
-  color: #d6d6d6;
+  color: #2c2c2c;
 }
 
 .logo {
   width: fit-content;
   padding: 0.5em;
-  margin: auto;
+  margin: 2em auto;
 }
 
 main {
@@ -44,44 +44,48 @@ main {
   width: 400px;
   margin: auto;
   border-radius: 1em;
-  border: solid 3px #d6d6d6;
+  border: solid 3px #2c2c2c;
   padding: 1em;
+}
+
+.show-password {
+  display: flex;
+
+  align-items: center;
 }
 
 /* EVERY PAGE */
 
 input,
 select {
-  color: #d6d6d6;
+  color: #2c2c2c;
   font-family: "Graduate", cursive;
-  color: #d6d6d6;
   padding: 0.5em;
   border-radius: 1em;
-  border: solid 2.5px #d6d6d6;
+  border: solid 2.5px #2c2c2c;
   margin: 0.5em;
-  background-color: #19204e;
 }
 
 ::placeholder {
-  color: #d6d6d6;
+  color: #2c2c2c;
 }
 
 a {
   font-family: "Graduate", cursive;
   background-color: #d6d6d6;
-  color: #19204e;
+  color: #2c2c2c;
   border-radius: 1em;
-  border: solid 2.5px #d6d6d6;
+  border: solid 2.5px #2c2c2c;
   padding: 0.5em;
   margin: 0.5em;
   text-decoration: none;
   text-align: center;
+  transition: ease-in-out 500ms;
 }
 
 a:hover {
   color: #df1b3f;
   transform: scale(1.1);
-  transition: ease-in-out 500ms;
 }
 
 /* WELCOME PAGE */
@@ -100,5 +104,5 @@ a:hover {
 
 .fa-arrow-right-from-bracket {
   font-size: 1.5em;
-  color: #fff;
+  color: #2c2c2c;
 }
