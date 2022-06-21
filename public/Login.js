@@ -1,6 +1,6 @@
 const loginForm = document.querySelector(".login");
 const loginButton = document.querySelector(".loginBtn");
-require("dotenv").config();
+
 const maxAge = 3 * 24 * 60 * 60 * 1000;
 loginForm.addEventListener("submit", async (e) => {
   e.preventDefault();
@@ -17,11 +17,9 @@ loginForm.addEventListener("submit", async (e) => {
         email: email,
         password: password,
       }),
-      headers: {
-        "Set-Cookie": `jwt=${process.env.JWT_SECRET}; Expires= ${maxAge}`,
-      },
+      headers: { "Content-Type": "application/json" },
     });
-    // window.location.href = "http://localhost:3000/info";
+    window.location.href = "http://localhost:3000/info";
     loginButton.disabled = true;
   } catch (err) {
     console.log(err);
