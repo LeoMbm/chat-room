@@ -12,14 +12,13 @@ body {
 .logo {
   width: fit-content;
   padding: 0.5em;
-  margin: 2em auto;
+  margin: auto;
 }
 
 main {
   display: flex;
   flex-flow: column wrap;
   justify-content: center;
-  margin: 3em;
 }
 
 /* FIRST PAGE */
@@ -43,7 +42,7 @@ main {
   flex-flow: column wrap;
   justify-content: center;
   width: 400px;
-  margin: 1em auto;
+  margin: auto;
   border-radius: 1em;
   border: solid 3px #d6d6d6;
   padding: 1em;
@@ -83,4 +82,23 @@ a:hover {
   color: #df1b3f;
   transform: scale(1.1);
   transition: ease-in-out 500ms;
+}
+
+/* WELCOME PAGE */
+
+.logout-case {
+  display: flex;
+  justify-content: flex-end;
+  margin: 1em;
+}
+
+#logout-btn {
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+
+.fa-arrow-right-from-bracket {
+  font-size: 1.5em;
+  color: #fff;
 }

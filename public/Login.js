@@ -11,7 +11,7 @@ loginForm.addEventListener("submit", async (e) => {
   if (!email || !password) alert("Please enter your email/password");
 
   try {
-    const res = fetch("http://localhost:3000/login", {
+    const res = await fetch("http://localhost:3000/login", {
       method: "POST",
       body: JSON.stringify({
         email: email,
@@ -19,8 +19,13 @@ loginForm.addEventListener("submit", async (e) => {
       }),
       headers: { "Content-Type": "application/json" },
     });
-    window.location.href = "http://localhost:3000/info";
-    loginButton.disabled = true;
+
+    if (res.ok == true) {
+      loginButton.disabled = true;
+      window.location.href = "http://localhost:3000/home";
+    } else {
+      alert("Email or password incorrect");
+    }
   } catch (err) {
     console.log(err);
   }
