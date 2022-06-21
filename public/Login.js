@@ -26,5 +26,4 @@ loginForm.addEventListener("submit", async (e) => {
   }
 });
 
-// TODO: LOGIN, GET COOKIE
-// FIXME: BAD REQUEST FORM
+// TODO: LOGOUT
