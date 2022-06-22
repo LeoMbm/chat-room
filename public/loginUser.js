@@ -16,3 +16,14 @@ async function logout(e) {
     console.log(err);
   }
 }
+
+// async function getUserdata() {
+//   const res = await fetch(`http://localhost:3000/api/users`);
+
+//   const data = await res.json();
+//   console.log(data);
+// }
+
+// getUserdata();
+
+// TODO: GET USERNAME BY FETCH ??? AND DISPLAY THAT

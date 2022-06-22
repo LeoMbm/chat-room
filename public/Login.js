@@ -1,5 +1,6 @@
 const loginForm = document.querySelector(".login");
 const loginButton = document.querySelector(".loginBtn");
+const showPwd = document.getElementById("checkbox");
 
 const maxAge = 3 * 24 * 60 * 60 * 1000;
 loginForm.addEventListener("submit", async (e) => {
@@ -30,5 +31,16 @@ loginForm.addEventListener("submit", async (e) => {
     console.log(err);
   }
 });
+
+showPwd.addEventListener("click", showPassword);
+
+function showPassword() {
+  const passwordField = document.getElementById("login-password");
+  if (passwordField.type == "password") {
+    passwordField.type = "text";
+  } else {
+    passwordField.type = "password";
+  }
+}
 
 // TODO: LOGOUT

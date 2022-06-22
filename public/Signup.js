@@ -1,6 +1,7 @@
 // const { response } = require("express");
 const form = document.querySelector("form");
 const button = document.querySelector("button");
+const showPwd = document.getElementById("checkbox");
 
 form.addEventListener("submit", async (e) => {
   e.preventDefault();
@@ -36,3 +37,14 @@ form.addEventListener("submit", async (e) => {
     console.log(err);
   }
 });
+
+showPwd.addEventListener("click", showPassword);
+
+function showPassword() {
+  const passwordField = document.getElementById("password");
+  if (passwordField.type == "password") {
+    passwordField.type = "text";
+  } else {
+    passwordField.type = "password";
+  }
+}

@@ -9,5 +9,6 @@ router.get("/", viewsController.index_get);
 router.get("/about", viewsController.about_get);
 router.get("/welcome", viewsController.newUser_get);
 router.get("/home", authController.requireAuth, viewsController.loginUser_get);
+router.get("/chat", authController.requireAuth, viewsController.chat_get);
 
 module.exports = router;

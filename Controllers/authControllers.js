@@ -92,5 +92,3 @@ module.exports.requireAuth = (req, res, next) => {
     res.redirect("/login");
   }
 };
-
-// FIXME: CHECK IF USERNMAE ALREADY EXIST

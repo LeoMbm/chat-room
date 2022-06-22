@@ -1,18 +1,19 @@
-@import url("https://fonts.googleapis.com/css2?family=Graduate&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap");
 
 body {
   background-color: #ecf0fd;
 }
 
 .about {
-  font-family: "Graduate", cursive;
+  font-family: "Poppins", sans-serif;
   color: #2c2c2c;
+  text-align: center;
 }
 
 .logo {
   width: fit-content;
   padding: 0.5em;
-  margin: 2em auto;
+  margin: 4em auto;
 }
 
 main {
@@ -26,11 +27,11 @@ main {
 .loginBtn,
 .signUpBtn,
 .aboutBtn {
-  width: 150px;
+  width: 50%;
   padding: 1em;
   border-radius: 1em;
   margin: 1em auto;
-  font-family: "Graduate", cursive;
+  font-family: "Poppins", sans-serif;
   cursor: pointer;
 }
 
@@ -41,7 +42,7 @@ main {
   display: flex;
   flex-flow: column wrap;
   justify-content: center;
-  width: 400px;
+  max-width: 500px;
   margin: auto;
   border-radius: 1em;
   border: solid 3px #2c2c2c;
@@ -59,11 +60,19 @@ main {
 input,
 select {
   color: #2c2c2c;
-  font-family: "Graduate", cursive;
+  font-family: "Poppins", sans-serif;
   padding: 0.5em;
   border-radius: 1em;
   border: solid 2.5px #2c2c2c;
   margin: 0.5em;
+}
+.email-field {
+  width: 90%;
+}
+
+label {
+  font-family: "Poppins", sans-serif;
+  font-weight: 300;
 }
 
 ::placeholder {
@@ -71,7 +80,7 @@ select {
 }
 
 a {
-  font-family: "Graduate", cursive;
+  font-family: "Poppins", sans-serif;
   background-color: #d6d6d6;
   color: #2c2c2c;
   border-radius: 1em;
@@ -105,4 +114,24 @@ a:hover {
 .fa-arrow-right-from-bracket {
   font-size: 1.5em;
   color: #2c2c2c;
+}
+
+.go-to-chat {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.fa-envelope {
+  margin-right: 0.5em;
+}
+
+.wlcUser {
+  font-family: "Poppins", sans-serif;
+}
+.logout-case {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 5em;
 }
