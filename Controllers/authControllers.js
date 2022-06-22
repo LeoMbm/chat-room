@@ -16,13 +16,16 @@ module.exports.signup_get = async (req, res) => {
 module.exports.login_get = async (req, res) => {
   await res.render("login");
 };
+
 module.exports.signup_post = async (req, res) => {
   const { id, username, email, password } = req.body;
+  if (!username && !email && !password)
+    return res.status(400).send({ error: "Invalid Request" });
 
   try {
     const hashedPwd = await bcrypt.hash(password, 10);
     const values = [username, email, hashedPwd];
-    console.log(hashedPwd);
+    // console.log(hashedPwd);
 
     const user = await pool.query(
       `INSERT INTO users (username, email, password, created_at) VALUES ($1,$2,$3, now());`,
@@ -35,6 +38,7 @@ module.exports.signup_post = async (req, res) => {
     console.log(err);
   }
 };
+
 module.exports.login_post = async (req, res) => {
   const { email, password } = req.body;
   if (!email || !password)
@@ -52,11 +56,11 @@ module.exports.login_post = async (req, res) => {
     const hash = user.rows[0].password;
 
     const match = await bcrypt.compare(password, hash);
-    console.log("email:" + email);
-    console.log("password:" + password + " match:" + match);
+    // console.log("email:" + email);
+    // console.log("password:" + password + " match:" + match);
     const token = createToken(user.id);
     res.cookie("jwt", token, { httpOnly: true, maxAge: maxAge });
-    console.log(token);
+    // console.log(token);
 
     if (match === true) {
       res.send("Connected");
@@ -71,7 +75,6 @@ module.exports.login_post = async (req, res) => {
 module.exports.logout_get = (req, res) => {
   res.cookie("jwt", "", { maxAge: 1 });
   res.redirect("/");
-  res.send("Logout !");
 };
 
 module.exports.requireAuth = (req, res, next) => {
@@ -86,28 +89,6 @@ module.exports.requireAuth = (req, res, next) => {
       }
     });
   } else {
-    res.status(401).send("You dont have the token :(");
+    res.redirect("/login");
   }
 };
-
-// function verifyToken(req, res, next) {
-//   const bearerHeader = req.headers["authorization"];
-//   const token = bearerHeader && bearerHeader.split(" ")[1];
-//   if (token == null) return res.status(401);
-//   jwt.verify(token, process.env.JWT_SECRET, (err, user) => {
-//     if (err) return res.status(403);
-//     req.user = user;
-//     next();
-//   });
-// }
-
-// const idToken = req.headers.authorization;
-
-// jwt.verify(idToken, process.env.JWT_SECRET, (err, decoded) => {
-//   if (err) {
-//     res.status(401).send("Unauthorized");
-//   } else {
-//     res.send(user.rows);
-//   }
-// });
-// console.log(idToken);
