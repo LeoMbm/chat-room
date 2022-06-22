@@ -26,12 +26,12 @@ form.addEventListener("submit", async (e) => {
     });
 
     console.log(res);
-    if (res.rowCount == 1) {
+    if (res.status == 401) {
       alert("User Already exist");
+    } else {
+      button.disabled = true;
+      window.location.href = "http://localhost:3000/welcome";
     }
-
-    // window.location.href = "http://localhost:3000/welcome";
-    button.disabled = true;
   } catch (err) {
     console.log(err);
   }

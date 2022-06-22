@@ -25,7 +25,7 @@ module.exports.signup_post = async (req, res) => {
   try {
     const hashedPwd = await bcrypt.hash(password, 10);
     const values = [username, email, hashedPwd];
-    console.log(hashedPwd);
+    // console.log(hashedPwd);
 
     const user = await pool.query(
       `INSERT INTO users (username, email, password, created_at) VALUES ($1,$2,$3, now());`,
