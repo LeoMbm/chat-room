@@ -16,6 +16,7 @@ module.exports.signup_get = async (req, res) => {
 module.exports.login_get = async (req, res) => {
   await res.render("login");
 };
+
 module.exports.signup_post = async (req, res) => {
   const { id, username, email, password } = req.body;
   if (!username && !email && !password)
@@ -37,6 +38,7 @@ module.exports.signup_post = async (req, res) => {
     console.log(err);
   }
 };
+
 module.exports.login_post = async (req, res) => {
   const { email, password } = req.body;
   if (!email || !password)
@@ -90,3 +92,5 @@ module.exports.requireAuth = (req, res, next) => {
     res.redirect("/login");
   }
 };
+
+// FIXME: CHECK IF USERNMAE ALREADY EXIST

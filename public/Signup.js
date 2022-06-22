@@ -25,7 +25,12 @@ form.addEventListener("submit", async (e) => {
       headers: { "Content-Type": "application/json" },
     });
 
-    window.location.href = "http://localhost:3000/welcome";
+    console.log(res);
+    if (res.rowCount == 1) {
+      alert("User Already exist");
+    }
+
+    // window.location.href = "http://localhost:3000/welcome";
     button.disabled = true;
   } catch (err) {
     console.log(err);
