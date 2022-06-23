@@ -13,7 +13,9 @@ body {
 .logo {
   width: fit-content;
   padding: 0.5em;
-  margin: 4em auto;
+  margin: 2em auto;
+  display: flex;
+  align-items: center;
 }
 
 main {
@@ -42,7 +44,7 @@ main {
   display: flex;
   flex-flow: column wrap;
   justify-content: center;
-  max-width: 500px;
+  min-width: 40%;
   margin: auto;
   border-radius: 1em;
   border: solid 3px #2c2c2c;
@@ -134,4 +136,22 @@ a:hover {
   justify-content: space-between;
   align-items: center;
   margin-bottom: 5em;
+}
+
+#previous-btn {
+  padding: 1.5em;
+  font-size: 1.5em;
+
+  border: none;
+  background: none;
+}
+
+.fa-arrow-left {
+  transition: all 0.5s ease-in-out;
+  cursor: pointer;
+}
+
+.fa-arrow-left:hover {
+  transform: scale(1.5);
+  color: #df1b3f;
 }

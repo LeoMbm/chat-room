@@ -17,13 +17,14 @@ async function logout(e) {
   }
 }
 
-// async function getUserdata() {
-//   const res = await fetch(`http://localhost:3000/api/users`);
+let oldURL = document.referrer;
 
-//   const data = await res.json();
-//   console.log(data);
-// }
+function getUserdata() {
+  const data = document.cookie.split("=");
+  const name = document.querySelector(".wlcUser");
+  name.innerHTML = `Hey ${data[1]} !`;
+}
 
-// getUserdata();
+getUserdata();
 
 // TODO: GET USERNAME BY FETCH ??? AND DISPLAY THAT

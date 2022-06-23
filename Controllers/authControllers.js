@@ -59,7 +59,10 @@ module.exports.login_post = async (req, res) => {
     // console.log("email:" + email);
     // console.log("password:" + password + " match:" + match);
     const token = createToken(user.id);
+    // console.log(user.rows[0].username);
     res.cookie("jwt", token, { httpOnly: true, maxAge: maxAge });
+    res.cookie("id", user.rows[0].username, { httpOnly: false, maxAge });
+
     // console.log(token);
 
     if (match === true) {
@@ -74,6 +77,7 @@ module.exports.login_post = async (req, res) => {
 
 module.exports.logout_get = (req, res) => {
   res.cookie("jwt", "", { maxAge: 1 });
+  res.cookie("id", "", { maxAge: 1 });
   res.redirect("/");
 };
 
