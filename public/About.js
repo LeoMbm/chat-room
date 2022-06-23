@@ -6,5 +6,4 @@ function previousPage() {
   let oldURL = document.referrer;
 
   window.location.href = oldURL;
-  console.log(oldURL);
 }
