@@ -66,7 +66,7 @@ module.exports.login_post = async (req, res) => {
     // console.log(token);
 
     if (match === true) {
-      res.send("Connected");
+      res.write("Connected");
     } else return res.status(401).send("Wrong password");
 
     // console.log(match);

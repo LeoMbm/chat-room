@@ -2,6 +2,7 @@
 const form = document.querySelector("form");
 const button = document.querySelector("button");
 const showPwd = document.getElementById("checkbox");
+const buttonPrevious = document.getElementById("previous-btn");
 
 form.addEventListener("submit", async (e) => {
   e.preventDefault();
@@ -40,6 +41,8 @@ form.addEventListener("submit", async (e) => {
 
 showPwd.addEventListener("click", showPassword);
 
+buttonPrevious.addEventListener("click", previousPage);
+
 function showPassword() {
   const passwordField = document.getElementById("password");
   if (passwordField.type == "password") {
@@ -47,4 +50,10 @@ function showPassword() {
   } else {
     passwordField.type = "password";
   }
+}
+
+function previousPage() {
+  let oldURL = document.referrer;
+
+  window.location.href = oldURL;
 }
