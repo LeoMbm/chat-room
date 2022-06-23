@@ -17,6 +17,8 @@ async function logout(e) {
   }
 }
 
+let oldURL = document.referrer;
+
 function getUserdata() {
   const data = document.cookie.split("=");
   const name = document.querySelector(".wlcUser");
