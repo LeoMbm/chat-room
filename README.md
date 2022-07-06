@@ -46,4 +46,4 @@ Here is the endpoints you could use.
 | /api/usersinlobby/{id} | DELETE |                | Delete an user in lobby  |
 | /api/messages/{id}     | DELETE |                | Delete a message         |
 
-## By LeoMbm
+
